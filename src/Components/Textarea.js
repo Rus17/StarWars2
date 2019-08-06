@@ -5,39 +5,39 @@ import React from 'react'
 //import React, {Component} from 'react';
 import './Textarea.css'
 
-class Textarea extends React.Component{
-    constructor(props){
-        super(props);        
-        this.linkTextarea = React.createRef();
-        this.textColor = React.createRef();
-        this.tags = React.createRef();        
-    }
-    
-    render(){
-        return(
-            <div className="textarea">
-                <textarea id="txtarea" placeholder="Введите вашу заметку" 
-                    cols="110" 
-                    rows="4" 
-                    ref={this.linkTextarea}></textarea><br />
-                Select color 
-                <input type="color" ref={this.textColor} /> <br />
-                Добавьте теги к вашей заметке:
-                <input type="text" ref={this.tags}/><br />
-                <button className="bttn" onClick={
-                    () => {this.props.handlerClick(
-                        this.linkTextarea.current.value, 
-                        this.textColor.current.value,
-                        this.tags.current.value)
-                    }}>Добавить
-                </button>
+const Textarea = (props) =>{
+
+   let linkTextarea = React.createRef();
+   let textColor = React.createRef();
+   let tags = React.createRef();  
+
+   return(
+      <div className="textarea">
+
+      <textarea id="txtarea" 
+         placeholder="Введите вашу заметку" 
+         cols="110" 
+         rows="4" 
+         ref={linkTextarea}>
+      </textarea><br />
+
+      Select color 
+      <input type="color" ref={textColor} /> <br />
+
+      Добавьте теги к вашей заметке:
+      <input type="text" ref={tags}/><br />
+
+      <button className="bttn" onClick={
+         () => {props.handlerClick(
+            linkTextarea.current.value, 
+            textColor.current.value,
+            tags.current.value)
                 
-            </div>
-        )        
-    }
-
-    
-
+         }
+         }>Добавить
+      </button>
+      </div>
+   )        
 }
 
 export default Textarea
