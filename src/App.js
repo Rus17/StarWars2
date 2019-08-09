@@ -5,7 +5,8 @@ import Users from "./Components/Users"
 import Menu from "./Components/Menu"
 import {BrowserRouter, Route} from "react-router-dom"
 
-const App = (props) => { 
+const App = (props) => {
+   
    return (
       <BrowserRouter>
          <div className = "app" >

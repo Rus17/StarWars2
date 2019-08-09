@@ -5,6 +5,7 @@ import './Messages.css'
 import CompTags from "./CompTags"
 
 const Messages = (props) => { 
+   
    return (
       <div className = "messages" >
 
@@ -13,7 +14,7 @@ const Messages = (props) => {
       
 
          {/*---------------Cписок тегов---------------*/}
-         <div className="compTags"> Теги заметок: {
+         <div className="compTags"> Теги заметок: { 
             props.db.allTags.map((item) => {
                if (item.myTags !== '')
                   return (                     

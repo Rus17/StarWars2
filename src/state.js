@@ -1,7 +1,6 @@
-
-
-let store = {
-   _startdb: {
+//------Объект для старта приложения---------
+let startObj ={
+   startdb: {
       users: [
          {
             id: 0,
@@ -73,24 +72,28 @@ let store = {
       ],
       allTags: ['Lorem', 'DubleLorem']
    },
-   
+ 
    //-----------Запись startdb в localStorage----------
    // Закомментировать после первого запуска приложения
    writeStorage(){
-      let browserDb = JSON.stringify(this._startdb)
-      debugger
+      let browserDb = JSON.stringify(this.startdb)
       localStorage.setItem("browserDb", browserDb)
-   },
+   }   
+}
+//startObj.writeStorage()
+
+//------Объект для работы приложения---------
+let store = {   
+   _db: {},
    
+   getDB(){return this._db},
    //-----------Чтение БД из localStorage----------
-   _db: JSON.parse(localStorage.getItem("browserDb")),
-   
-   getState(){
-      return this._db;
+   readStorage(){
+      this._db = JSON.parse(localStorage.getItem("browserDb"))
    },
    
    //---------Принудительная перерисовка дерева-----------   
-   rerenderEntireTree () {
+   callSubscriber () {
       console.log("Заглушка до переопределения")  //Очень замороченный коллбек для избежания замыкания
    },
 
@@ -101,7 +104,7 @@ let store = {
       newDate = newDate.toLocaleString('ru-RU')
 
       let nextNote = {
-         myId: _db.notes.length,
+         myId: store._db.notes.length,
          mytext: value,
          mydate: newDate,
          myColor: textColor,
@@ -110,44 +113,47 @@ let store = {
 
       // если такой тег уже есть, меняем counter на false
       let counter = true
-      for (let value of _db.allTags) {
+      for (let value of store._db.allTags) {
          if (value === tegs) counter = false
       }
 
       // если такого тега нет и он не пустой, то добавляем его в скачанный массив db.allTags
       if (counter === true && tegs !== '') {
    //      db.allTags = db.allTags.concat(tegs)
-         db.allTags = db.allTags.concat(tegs)      
-         localStorage.setItem("browserDb", JSON.stringify(db))
+         this._db.allTags = this._db.allTags.concat(tegs)
+         
+         localStorage.setItem("browserDb", JSON.stringify(this._db))
       }
 
        // добавляем в скачанный массив db.notes новый объект nextNote
-      db.notes = db.notes.concat(nextNote)
-      localStorage.setItem("browserDb", JSON.stringify(db))
+      this._db.notes = this._db.notes.concat(nextNote)
+      localStorage.setItem("browserDb", JSON.stringify(this._db))
 
-      filteredNotes = db.notes
-      rerenderEntireTree(db)
+      this.filteredNotes = this._db.notes
+      this.callSubscriber(this)
 },
 
    //-----------Функция фильтра статей по тегу----------
-   filteredNotes: this.db.notes,
+   filteredNotes: [],
    handlerTags(teg) {    
-      filteredNotes = db.notes.filter((item) => item.myTags === teg)
-      rerenderEntireTree(db)
+      this.filteredNotes = this._db.notes.filter((item) => item.myTags === teg)
+      this.callSubscriber(this)
    },
    
    //-----------Функция сброса фильтра ----------
    reset(){
-      filteredNotes = db.notes
-      rerenderEntireTree(db)
+      this.filteredNotes = this._db.notes
+      this.callSubscriber(this)
    },
 
    //-----------Очень замороченный коллбек для избежания замыкания между index.js и этим файлом
    subscribe(observer){
-      this.rerenderEntireTree = observer
+      this.callSubscriber = observer
    }
 }
 
+store.readStorage()
+store.filteredNotes = store._db.notes
 
-console.log("Hi")
+
 export default store;

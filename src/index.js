@@ -3,15 +3,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 
-let rerenderEntireTree = (db) => {
+let rerenderEntireTree = (store) => {
+   
    ReactDOM.render(<App 
-                   db={db}
-                   handlerClick={db.handlerClick}
-                   handlerTags={db.handlerTags}
-                   filteredNotes={db.filteredNotes}
-                   reset={db.reset}
+                   db={store.getDB()}
+                   handlerClick={store.handlerClick.bind(store)}
+                   handlerTags={store.handlerTags.bind(store)}
+                   filteredNotes={store.filteredNotes}
+                   reset={store.reset.bind(store)}
                    />, document.querySelector('#root'))
 }
-store.writeStorage()
+
 rerenderEntireTree(store)
 store.subscribe(rerenderEntireTree)          //Очень замороченный коллбек для избежания замыкания
