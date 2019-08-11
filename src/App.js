@@ -6,7 +6,7 @@ import Menu from "./Components/Menu"
 import {BrowserRouter, Route} from "react-router-dom"
 
 const App = (props) => {
-   
+
    return (
       <BrowserRouter>
          <div className = "app" >
@@ -14,20 +14,22 @@ const App = (props) => {
             <div className="container">
                <Menu />
                <div className="content">
-                  <Route path="/showMessages" render={()=><Messages 
-                                                   db={props.db}
-                                                   handlerClick={props.handlerClick}
-                                                   handlerTags={props.handlerTags}
-                                                   filteredNotes={props.filteredNotes}
-                                                   reset={props.reset}
+                  <div><h1>Стартовая страница</h1></div>
+                  <Route
+                     path="/showMessages"
+                     render={()=><Messages
+                                    db={props.db}
+                                    dispatch={props.dispatch}
+                                    filteredNotes={props.filteredNotes}
                                                 />
                   }/>
 
                   <Route path="/showUsers" render={() =>
-                     <Users 
-                        db = {props.db}                           
-                     /> 
-                 }/>               
+                     <Users
+                        db = {props.db}
+                        dispatch = {props.dispatch}
+                     />
+                 }/>
                </div>
             </div>
          </div>

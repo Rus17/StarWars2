@@ -1,18 +1,19 @@
 import React from 'react'
 import './CompTags.css'
+import {handlerTegActionCreator} from "./../state.js"
 
-class CompTags extends React.Component{
-   render(){
-      return(         
-         /*//   <NavLink to="/search" >{this.props.tag}, </NavLink> */
-            
-               <button onClick={
-                  () => { this.props.handlerTags(this.props.tag)}}>
-                  {this.props.tag}
-               </button>
-            
+const CompTags = (props) => {
+
+let addTeg = () => {
+   let action = handlerTegActionCreator(props.tag)
+   props.dispatch(action)
+}
+
+      return(
+         <button onClick={addTeg}>
+            {props.tag}
+         </button>
       )
-   }
 }
 
 export default CompTags

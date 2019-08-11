@@ -3,37 +3,39 @@ import Textarea from "./Textarea"
 import Articles from "./Articles"
 import './Messages.css'
 import CompTags from "./CompTags"
+import {handlerResetActionCreator} from "./../state.js"
 
-const Messages = (props) => { 
-   
+const Messages = (props) => {
+   let handlerReset = () => {
+      let action = handlerResetActionCreator()
+      props.dispatch(action)
+   }
    return (
       <div className = "messages" >
 
          {/*-----------Поле ввода--------------- */}
-         <Textarea handlerClick = {props.handlerClick}/>
-      
+         <Textarea dispatch = {props.dispatch}/>
 
          {/*---------------Cписок тегов---------------*/}
-         <div className="compTags"> Теги заметок: { 
+         <div className="compTags"> Теги заметок: {
             props.db.allTags.map((item) => {
+
                if (item.myTags !== '')
-                  return (                     
-                     <CompTags 
+                  return (
+                     <CompTags
                      tag = {item}
                      key = {item}
-                     handlerTags = {props.handlerTags}
-                     />                      
+                     dispatch = {props.dispatch}
+                     />
                   )
             })
          } </div>
 
-
          {/*---------------Кнопка сброса---------------*/}
          <div className="buttunShowAll">
-            <button onClick={props.reset}>Отобразить все
+            <button onClick={handlerReset}>Отобразить все
             </button>
          </div>
-
 
          {/*---------------Cписок статей---------------*/}
          <div>{
