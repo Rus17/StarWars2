@@ -1,15 +1,18 @@
 import React from 'react'
 import "./Users.css"
+import {handlerAddSymbolUser} from "./../state.js"
 import {handlerAddUser} from "./../state.js"
+
 
 const Users = (props) => {
    const addSymbol = (e) => {
-      let action = handlerAddUser(e.target.value)
+      let action = handlerAddSymbolUser(e.target.value)
       props.dispatch(action)
    }
 
    const addUser = () => {
-
+      let action = handlerAddUser(props.db.symbolAddUser)
+      props.dispatch(action)
    }
 
    return <div className="users">{
@@ -25,7 +28,7 @@ const Users = (props) => {
          value={props.db.symbolAddUser}>
       </textarea>
       <input type="file"></input><br />
-      <button onClick="addUser">Добавить</button>
+      <button onClick={addUser}>Добавить</button>
    </div>
 }
 

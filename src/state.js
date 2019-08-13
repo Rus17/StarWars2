@@ -71,22 +71,24 @@ let startObj ={
          },
       ],
       allTags: ['Lorem', 'DubleLorem'],
-      symbolAddUser: 'New User'
+      symbolAddUser: ''
    },
 
    //-----------Запись startdb в localStorage----------
-   // Закомментировать после первого запуска приложения
    writeStorage(){
       let browserDb = JSON.stringify(this.startdb)
       localStorage.setItem("browserDb", browserDb)
    }
 }
-startObj.writeStorage()
+
+// Закомментировать после первого запуска приложения
+//startObj.writeStorage()
 
 
 const HANDLER_CLICK = 'HANDLERCLICK'
 const HANDLER_TEG = 'HANDLERTAGS'
 const HANDLER_RESET = 'RESET'
+const HANDLER_SYMBOL_USER = 'HANDLERSYMBOLUSER'
 const HANDLER_USER = 'HANDLERUSER'
 
 //------Объект для работы приложения---------
@@ -147,9 +149,27 @@ let store = {
          this.filteredNotes = this._db.notes
          this.callSubscriber(this)
       }
-      else if (action.type === HANDLER_USER) {
-         this._db.symbolAddUser = action.symbolNik
-         
+      
+      //-----------Функция ввода символа в поле users ----------
+      else if (action.type === HANDLER_SYMBOL_USER) {         
+         this._db.symbolAddUser = action.symbolNik         
+         this.callSubscriber(this)
+      }
+      
+      //-----------Функция добавления нового пользователя ----------
+      else if (action.type === HANDLER_USER){
+         if(action.nik){
+            let newUser = {
+               id: this._db.users.length,
+               name: action.nik,
+               avatar: './img/noAvatar.jpg'
+            }
+            this._db.users = this._db.users.concat(newUser)
+            this._db.symbolAddUser = ''
+            this.callSubscriber(this)
+
+            localStorage.setItem("browserDb", JSON.stringify(this._db))
+         }
       }
    },
 
@@ -183,7 +203,12 @@ export let handlerTegActionCreator = (teg) => ({
 
 export let handlerResetActionCreator = () =>({type: HANDLER_RESET})
 
-export let handlerAddUser = (symbolNik) => ({
-   type: HANDLER_USER,
+export let handlerAddSymbolUser = (symbolNik) => ({
+   type: HANDLER_SYMBOL_USER,
    symbolNik
+})
+
+export let handlerAddUser = (nik) => ({
+   type: HANDLER_USER,
+   nik
 })
