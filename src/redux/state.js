@@ -1,7 +1,11 @@
+import notesReducer from './notesReducer'
+import usersReducer from './usersReducer'
+
 //------Объект для старта приложения---------
 let startObj ={
    startdb: {
-      users: [
+      usersPage: {
+         users: [
          {
             id: 0,
             name: 'Падме Амидала',
@@ -28,7 +32,10 @@ let startObj ={
             avatar: './img/LSW.jpg',
          },
       ],
-      notes: [
+         symbolAddUser: ''
+      },
+      notesPage: {
+         notes: [
          {
             myId: 0,
             userName: 'Падме Амидала',
@@ -70,8 +77,9 @@ let startObj ={
             myTags: 'DubleLorem'
          },
       ],
-      allTags: ['Lorem', 'DubleLorem'],
-      symbolAddUser: ''
+         allTags: ['Lorem', 'DubleLorem'],
+         filteredNotes: []
+      }  
    },
 
    //-----------Запись startdb в localStorage----------
@@ -94,7 +102,7 @@ const HANDLER_USER = 'HANDLERUSER'
 //------Объект для работы приложения---------
 let store = {
    _db: {},
-   filteredNotes: [],
+   
    //-----------Чтение БД из localStorage----------
    readStorage(){
       this._db = JSON.parse(localStorage.getItem("browserDb"))
@@ -104,73 +112,12 @@ let store = {
 
    dispatch(action){
       //-----------Функция добавления новой записи----------
-      if(action.type === HANDLER_CLICK){
-         let newDate = new Date()
-         newDate = newDate.toLocaleString('ru-RU')
-
-         let nextNote = {
-            myId: store._db.notes.length,
-            mytext: action.text,
-            mydate: newDate,
-            myColor: action.color,
-            myTags: action.teg
-         }
-
-         // если такой тег уже есть, меняем counter на false
-         let counter = true
-         for (let value of store._db.allTags) {
-            if (value === action.teg) counter = false
-         }
-
-         // если такого тега нет и он не пустой, то добавляем его в скачанный массив db.allTags
-         if (counter === true && action.teg !== '') {
-            this._db.allTags = this._db.allTags.concat(action.teg)
-
-            localStorage.setItem("browserDb", JSON.stringify(this._db))
-         }
-
-          // добавляем в скачанный массив db.notes новый объект nextNote
-         this._db.notes = this._db.notes.concat(nextNote)
-         localStorage.setItem("browserDb", JSON.stringify(this._db))
-
-         this.filteredNotes = this._db.notes
-         this.callSubscriber(this)
-      }
-
-      //-----------Функция фильтра статей по тегу----------
-      else if (action.type === HANDLER_TEG){
-            this.filteredNotes = this._db.notes.filter(
-               (item) => item.myTags === action.teg)
-            this.callSubscriber(this)
-      }
-
-      //-----------Функция сброса фильтра ----------
-      else if (action.type === HANDLER_RESET) {
-         this.filteredNotes = this._db.notes
-         this.callSubscriber(this)
-      }
-      
-      //-----------Функция ввода символа в поле users ----------
-      else if (action.type === HANDLER_SYMBOL_USER) {         
-         this._db.symbolAddUser = action.symbolNik         
-         this.callSubscriber(this)
-      }
+      this._db.notesPage = notesReducer(this._db.notesPage, action)
       
       //-----------Функция добавления нового пользователя ----------
-      else if (action.type === HANDLER_USER){
-         if(action.nik){
-            let newUser = {
-               id: this._db.users.length,
-               name: action.nik,
-               avatar: './img/noAvatar.jpg'
-            }
-            this._db.users = this._db.users.concat(newUser)
-            this._db.symbolAddUser = ''
-            this.callSubscriber(this)
-
-            localStorage.setItem("browserDb", JSON.stringify(this._db))
-         }
-      }
+      this._db.usersPage = usersReducer(this._db.usersPage, action)
+      
+      this.callSubscriber(this)
    },
 
    //---------Принудительная перерисовка дерева-----------
@@ -185,7 +132,7 @@ let store = {
 }
 
 store.readStorage()
-store.filteredNotes = store._db.notes
+store.filteredNotes = store._db.notesPage.notes
 
 export default store;
 

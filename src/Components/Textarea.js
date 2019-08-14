@@ -3,7 +3,7 @@
 // Затем, при нажатии на тег, должны отфильтровываться заметки с данным тегом.
 import React from 'react'
 import './Textarea.css'
-import {handlerClickActionCreator} from './../state.js'
+import {handlerClickActionCreator} from './../redux/state.js'
 
 const Textarea = (props) =>{
    let linkTextarea = React.createRef();

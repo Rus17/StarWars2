@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Users.css"
-import {handlerAddSymbolUser} from "./../state.js"
-import {handlerAddUser} from "./../state.js"
+import {handlerAddSymbolUser} from "./../redux/state.js"
+import {handlerAddUser} from "./../redux/state.js"
 
 
 const Users = (props) => {
@@ -11,12 +11,12 @@ const Users = (props) => {
    }
 
    const addUser = () => {
-      let action = handlerAddUser(props.db.symbolAddUser)
+      let action = handlerAddUser(props.db.usersPage.symbolAddUser)
       props.dispatch(action)
    }
 
    return <div className="users">{
-      props.db.users.map((item) => {
+      props.db.usersPage.users.map((item) => {
          return <div key={item.id}>
             <img src={item.avatar} alt="Аватарка"/>
             <b>{item.name}</b>
@@ -25,7 +25,7 @@ const Users = (props) => {
       <textarea
          // placeholder="Name"
          onChange={addSymbol}
-         value={props.db.symbolAddUser}>
+         value={props.db.usersPage.symbolAddUser}>
       </textarea>
       <input type="file"></input><br />
       <button onClick={addUser}>Добавить</button>

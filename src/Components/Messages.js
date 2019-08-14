@@ -3,7 +3,7 @@ import Textarea from "./Textarea"
 import Articles from "./Articles"
 import './Messages.css'
 import CompTags from "./CompTags"
-import {handlerResetActionCreator} from "./../state.js"
+import {handlerResetActionCreator} from "./../redux/state.js"
 
 const Messages = (props) => {
    let handlerReset = () => {
@@ -18,7 +18,7 @@ const Messages = (props) => {
 
          {/*---------------Cписок тегов---------------*/}
          <div className="compTags"> Теги заметок: {
-            props.db.allTags.map((item) => {
+            props.db.notesPage.allTags.map((item) => {
 
                if (item.myTags !== '')
                   return (

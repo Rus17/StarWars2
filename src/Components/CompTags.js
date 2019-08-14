@@ -1,6 +1,6 @@
 import React from 'react'
 import './CompTags.css'
-import {handlerTegActionCreator} from "./../state.js"
+import {handlerTegActionCreator} from "./../redux/state.js"
 
 const CompTags = (props) => {
 
