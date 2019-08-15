@@ -1,4 +1,4 @@
-import store from "./redux/state.js"
+import store from "./redux/store.js"
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
@@ -6,9 +6,9 @@ import App from './App'
 let rerenderEntireTree = (store) => {
 
    ReactDOM.render(<App
-                   db={store.getDB()}                   
+                   db={store.getDB()}
                    dispatch={store.dispatch.bind(store)}
-                   filteredNotes={store.filteredNotes}
+                   filteredNotes={store.getDB().notesPage.filteredNotes}
                    />, document.querySelector('#root'))
 }
 

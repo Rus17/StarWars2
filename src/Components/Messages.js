@@ -3,7 +3,7 @@ import Textarea from "./Textarea"
 import Articles from "./Articles"
 import './Messages.css'
 import CompTags from "./CompTags"
-import {handlerResetActionCreator} from "./../redux/state.js"
+import {handlerResetActionCreator} from "./../redux/notesReducer.js"
 
 const Messages = (props) => {
    let handlerReset = () => {

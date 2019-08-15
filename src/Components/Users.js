@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Users.css"
-import {handlerAddSymbolUser} from "./../redux/state.js"
-import {handlerAddUser} from "./../redux/state.js"
+import {handlerAddSymbolUser} from "./../redux/usersReducer.js"
+import {handlerAddUser} from "./../redux/usersReducer.js"
 
 
 const Users = (props) => {

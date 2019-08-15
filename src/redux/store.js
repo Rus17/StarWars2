@@ -79,7 +79,7 @@ let startObj ={
       ],
          allTags: ['Lorem', 'DubleLorem'],
          filteredNotes: []
-      }  
+      }
    },
 
    //-----------Запись startdb в localStorage----------
@@ -88,24 +88,17 @@ let startObj ={
       localStorage.setItem("browserDb", browserDb)
    }
 }
-
-// Закомментировать после первого запуска приложения
-//startObj.writeStorage()
-
-
-const HANDLER_CLICK = 'HANDLERCLICK'
-const HANDLER_TEG = 'HANDLERTAGS'
-const HANDLER_RESET = 'RESET'
-const HANDLER_SYMBOL_USER = 'HANDLERSYMBOLUSER'
-const HANDLER_USER = 'HANDLERUSER'
+ if(localStorage.getItem("browserDb")){}
+ else startObj.writeStorage()
 
 //------Объект для работы приложения---------
 let store = {
    _db: {},
-   
+
    //-----------Чтение БД из localStorage----------
    readStorage(){
       this._db = JSON.parse(localStorage.getItem("browserDb"))
+      store._db.notesPage.filteredNotes = this._db.notesPage.notes
    },
 
    getDB(){return this._db},
@@ -113,11 +106,19 @@ let store = {
    dispatch(action){
       //-----------Функция добавления новой записи----------
       this._db.notesPage = notesReducer(this._db.notesPage, action)
-      
+
       //-----------Функция добавления нового пользователя ----------
       this._db.usersPage = usersReducer(this._db.usersPage, action)
-      
+
+      this.writeStorage(this._db)
+
       this.callSubscriber(this)
+   },
+
+   //--------------------Запись localStarge-----------------------
+   writeStorage (newDB){
+      let browserDb = JSON.stringify(newDB)
+      localStorage.setItem("browserDb", browserDb)
    },
 
    //---------Принудительная перерисовка дерева-----------
@@ -132,30 +133,5 @@ let store = {
 }
 
 store.readStorage()
-store.filteredNotes = store._db.notesPage.notes
 
 export default store;
-
-export let handlerClickActionCreator = (text, color, teg) => ({
-   type: HANDLER_CLICK,
-   text,
-   color,
-   teg
-})
-
-export let handlerTegActionCreator = (teg) => ({
-   type: HANDLER_TEG,
-   teg
-})
-
-export let handlerResetActionCreator = () =>({type: HANDLER_RESET})
-
-export let handlerAddSymbolUser = (symbolNik) => ({
-   type: HANDLER_SYMBOL_USER,
-   symbolNik
-})
-
-export let handlerAddUser = (nik) => ({
-   type: HANDLER_USER,
-   nik
-})

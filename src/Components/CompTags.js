@@ -1,6 +1,6 @@
 import React from 'react'
 import './CompTags.css'
-import {handlerTegActionCreator} from "./../redux/state.js"
+import {handlerTegActionCreator} from "./../redux/notesReducer.js"
 
 const CompTags = (props) => {
 
@@ -8,7 +8,6 @@ let addTeg = () => {
    let action = handlerTegActionCreator(props.tag)
    props.dispatch(action)
 }
-
       return(
          <button onClick={addTeg}>
             {props.tag}

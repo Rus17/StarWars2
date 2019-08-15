@@ -2,16 +2,13 @@ const HANDLER_SYMBOL_USER = 'HANDLERSYMBOLUSER'
 const HANDLER_USER = 'HANDLERUSER'
 
 const usersReducer = (state, action) => {
-      
-      
+
+   switch (action.type) {
       //-----------Функция ввода символа в поле users ----------
-      if (action.type === HANDLER_SYMBOL_USER) {         
-         state.symbolAddUser = action.symbolNik 
-      }
-      
+      case HANDLER_SYMBOL_USER:state.symbolAddUser = action.symbolNik;
+      return state;
       //-----------Функция добавления нового пользователя ----------
-      else if (action.type === HANDLER_USER){
-         if(action.nik){
+      case HANDLER_USER:if(action.nik){
             let newUser = {
                id: state.users.length,
                name: action.nik,
@@ -19,12 +16,20 @@ const usersReducer = (state, action) => {
             }
             state.users = state.users.concat(newUser)
             state.symbolAddUser = ''
-
-            localStorage.setItem("browserDb", JSON.stringify(this._db))
          }
-      }
-   
-   return state
+      return state;
+      default: return state
+   }
 }
 
 export default usersReducer
+
+export let handlerAddSymbolUser = (symbolNik) => ({
+   type: HANDLER_SYMBOL_USER,
+   symbolNik
+})
+
+export let handlerAddUser = (nik) => ({
+   type: HANDLER_USER,
+   nik
+})
