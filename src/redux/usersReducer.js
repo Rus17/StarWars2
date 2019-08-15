@@ -1,7 +1,39 @@
 const HANDLER_SYMBOL_USER = 'HANDLERSYMBOLUSER'
 const HANDLER_USER = 'HANDLERUSER'
 
-const usersReducer = (state, action) => {
+//------------------Начальные значения State------------------
+let initialState = {
+   users: [
+   {
+      id: 0,
+      name: 'Падме Амидала',
+      avatar: './img/PA.jpg',
+   },
+   {
+      id: 1,
+      name: 'Оби-Ван Кеноби',
+      avatar: './img/OVC.jpg',
+   },
+   {
+      id: 2,
+      name: 'Магистр Йода',
+      avatar: './img/MY.jpg',
+   },
+   {
+      id: 3,
+      name: 'Чубака',
+      avatar: './img/Ch.jpg',
+   },
+   {
+      id: 4,
+      name: 'Люк Скайуокер',
+      avatar: './img/LSW.jpg',
+   },
+],
+   symbolAddUser: ''
+}
+
+const usersReducer = (state = initialState, action) => {
 
    switch (action.type) {
       //-----------Функция ввода символа в поле users ----------

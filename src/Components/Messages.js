@@ -10,6 +10,7 @@ const Messages = (props) => {
       let action = handlerResetActionCreator()
       props.dispatch(action)
    }
+   
    return (
       <div className = "messages" >
 

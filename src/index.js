@@ -1,16 +1,19 @@
-import store from "./redux/store.js"
+import store from "./redux/reduxStore.js"
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 
-let rerenderEntireTree = (store) => {
+
+let rerenderEntireTree = (state) => {
 
    ReactDOM.render(<App
-                   db={store.getDB()}
+                   db={state}
                    dispatch={store.dispatch.bind(store)}
-                   filteredNotes={store.getDB().notesPage.filteredNotes}
+                   filteredNotes={store.getState().notesPage.filteredNotes}
                    />, document.querySelector('#root'))
 }
 
-rerenderEntireTree(store)
-store.subscribe(rerenderEntireTree)          //Очень замороченный коллбек для избежания замыкания
+rerenderEntireTree(store.getState())
+store.subscribe(() => {    //Почему не просто store.subscribe(rerenderEntireTree)
+   rerenderEntireTree(store.getState())
+})
