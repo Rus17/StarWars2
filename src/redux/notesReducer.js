@@ -123,10 +123,12 @@ const notesReducer = (state = initialState, action) => {
       state.filteredNotes = state.notes
    };
    return state;
+         
       //-----------Функция фильтра статей по тегу----------
    case HANDLER_TEG:state.filteredNotes = state.notes.filter(
             (item) => item.myTags === action.teg);
    return state;
+         
       //-----------Функция сброса фильтра ----------
    case HANDLER_RESET: state.filteredNotes = state.notes;
    return state;

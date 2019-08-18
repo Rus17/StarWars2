@@ -56,12 +56,12 @@ const usersReducer = (state = initialState, action) => {
 
 export default usersReducer
 
-export let handlerAddSymbolUser = (symbolNik) => ({
+export let handlerAddSymbolUser = (symbolNik) => ({         // Формируется объект action для dispatch
    type: HANDLER_SYMBOL_USER,
    symbolNik
 })
 
-export let handlerAddUser = (nik) => ({
+export let handlerAddUser = (nik) => ({         // Формируется объект action для dispatch
    type: HANDLER_USER,
    nik
 })

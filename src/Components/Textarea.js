@@ -9,11 +9,13 @@ const Textarea = (props) =>{
    let linkTextarea = React.createRef();
    let textColor = React.createRef();
    let tags = React.createRef();
+   
    let addNotes = () =>{
       let action = handlerClickActionCreator(
          linkTextarea.current.value,
          textColor.current.value,
          tags.current.value)
+      
       props.dispatch(action)
    }
 

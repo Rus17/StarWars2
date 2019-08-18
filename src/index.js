@@ -7,9 +7,7 @@ import App from './App'
 let rerenderEntireTree = (state) => {
 
    ReactDOM.render(<App
-                   db={state}
-                   dispatch={store.dispatch.bind(store)}
-                   filteredNotes={store.getState().notesPage.filteredNotes}
+                   store={store}
                    />, document.querySelector('#root'))
 }
 

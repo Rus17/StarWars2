@@ -8,7 +8,4 @@ let reducers = combineReducers({       // Наш state
 })
 
 let store = createStore(reducers)
-
-// export let filteredNotes = store.getState().notesPage.notes
-
 export default store

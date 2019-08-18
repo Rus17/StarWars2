@@ -1,14 +1,16 @@
 import React from 'react'
 import './App.css'
-import Messages from "./Components/Messages"
-import Users from "./Components/Users"
+import UsersContainer from "./Components/UsersContainer"
+import MessagesContainer from "./Components/MessagesContainer"
 import Menu from "./Components/Menu"
 import {BrowserRouter, Route} from "react-router-dom"
+import StoreContext from "./StoreContext"
 
 const App = (props) => {
 
    return (
       <BrowserRouter>
+      <StoreContext.Provider value={props.store}>
          <div className = "app" >
             <div className="header">Шапка</div>
             <div className="container">
@@ -17,26 +19,21 @@ const App = (props) => {
                   <div><h1>Стартовая страница</h1></div>
                   <Route
                      path="/showMessages"
-                     render={()=><Messages
-                                    db={props.db}
-                                    dispatch={props.dispatch}
-                                    filteredNotes={props.filteredNotes}
-                                                />
-                  }/>
+                     render={()=><MessagesContainer />
+                     }
+                  />
 
-                  <Route path="/showUsers" render={() =>
-                     <Users
-                        db = {props.db}
-                        dispatch = {props.dispatch}
-                     />
-                 }/>
+                  <Route 
+                     path="/showUsers" 
+                     render={() => <UsersContainer />
+                     }
+                  />
                </div>
             </div>
          </div>
+   </StoreContext.Provider>
       </BrowserRouter>
    )
 }
-
-
 
 export default App

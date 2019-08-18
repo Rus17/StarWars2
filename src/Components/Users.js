@@ -1,35 +1,33 @@
 import React from 'react'
 import "./Users.css"
-import {handlerAddSymbolUser} from "./../redux/usersReducer.js"
-import {handlerAddUser} from "./../redux/usersReducer.js"
 
-
-const Users = (props) => {
-   const addSymbol = (e) => {
-      let action = handlerAddSymbolUser(e.target.value)
-      props.dispatch(action)
-   }
-
-   const addUser = () => {
-      let action = handlerAddUser(props.db.usersPage.symbolAddUser)
-      props.dispatch(action)
-   }
-
-   return <div className="users">{
-      props.db.usersPage.users.map((item) => {
-         return <div key={item.id}>
-            <img src={item.avatar} alt="Аватарка"/>
-            <b>{item.name}</b>
-            </div>
-      })}
+const Users = (props) => {    
+   
+            //Обработчик ввода символа
+   const addSymbol = props.addSymbol       // Запускаем dispatch
+   
+            //Обработчик клика по кнопке "Добавить"
+   const addUser = props.addUser
+   
+            //Вывод пользователей
+   const outputUsers =  props.users.map((item) => {
+                           return <div key={item.id}>
+                              <img src={item.avatar} alt="Аватарка"/>
+                              <b>{item.name}</b>
+                              </div>
+   })
+   
+   return (
+      <div className="users">{outputUsers}
       <textarea
-         // placeholder="Name"
+         placeholder="Input your name"
          onChange={addSymbol}
-         value={props.db.usersPage.symbolAddUser}>
+         value={props.symbolForValue}>
       </textarea>
       <input type="file"></input><br />
       <button onClick={addUser}>Добавить</button>
-   </div>
+      </div>
+   )
 }
 
 export default Users

@@ -91,6 +91,10 @@ let startObj ={
  if(localStorage.getItem("browserDb")){}
  else startObj.writeStorage()
 
+
+
+
+
 //------Объект для работы приложения---------
 let store = {
    _db: {},
