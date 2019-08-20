@@ -1,39 +1,25 @@
-import React from 'react'
 import Users from "./Users"
 import {handlerAddSymbolUser} from "./../redux/usersReducer.js"
 import {handlerAddUser} from "./../redux/usersReducer.js"
-import StoreContext from "./../StoreContext"
+import {connect} from "react-redux"
 
 
-const UsersContainer = () => {
-   
-   return(
-      <StoreContext.Consumer>           
-      {                   // Эту фигурную скобку нельзя ставить на одной строке с <StoreContext.Consumer>!!!
-         (store) => {
-            let users = store.getState().usersPage.users   
-            let symbolForValue = store.getState().usersPage.symbolAddUser
-
-                     //Обработчик ввода символа
-            const addSymbolUser = (e) => { 
-               let action = handlerAddSymbolUser(e.target.value)           // Формируется объект action для dispatch
-               store.dispatch(action)                                   // Запускаем dispatch
-            }
-                     //Обработчик клика по кнопке "Добавить"
-            const addProfile = () => {             
-               let action = handlerAddUser(store.getState().usersPage.symbolAddUser)         // Формируется объект action для dispatch
-               store.dispatch(action)
-            }
-            return (
-            <Users 
-               users={users} 
-               symbolForValue={symbolForValue}
-               addSymbol={addSymbolUser}
-               addUser={addProfile}            
-         />)}
-      }
-      </StoreContext.Consumer>
-   )      
+let MapStateToProps = (state) => {
+   return {
+      users: state.usersPage.users, 
+      symbolForValue: state.usersPage.symbolAddUser
+   }
 }
-     
+
+let MapDispatchToProps = (dispatch) => {
+   
+   return {
+      addSymbol: (e) => {dispatch(handlerAddSymbolUser(e.target.value))},
+      addUser: () => {let action = handlerAddUser()
+               dispatch(action)}
+   }
+}
+
+const UsersContainer = connect (MapStateToProps, MapDispatchToProps) (Users)
+   
 export default UsersContainer

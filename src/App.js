@@ -2,15 +2,17 @@ import React from 'react'
 import './App.css'
 import UsersContainer from "./Components/UsersContainer"
 import MessagesContainer from "./Components/MessagesContainer"
+import EnemiesContainer from "./Components/Dark/EnemiesContainer"
 import Menu from "./Components/Menu"
 import {BrowserRouter, Route} from "react-router-dom"
-import StoreContext from "./StoreContext"
+import {Provider} from "react-redux"
+
 
 const App = (props) => {
 
    return (
       <BrowserRouter>
-      <StoreContext.Provider value={props.store}>
+      <Provider store={props.store}>
          <div className = "app" >
             <div className="header">Шапка</div>
             <div className="container">
@@ -28,10 +30,16 @@ const App = (props) => {
                      render={() => <UsersContainer />
                      }
                   />
+                        
+                  <Route 
+                     path="/dark" 
+                     render={() => <EnemiesContainer />
+                     }
+                  />
                </div>
             </div>
          </div>
-   </StoreContext.Provider>
+   </Provider>
       </BrowserRouter>
    )
 }

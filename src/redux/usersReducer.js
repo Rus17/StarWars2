@@ -37,19 +37,26 @@ const usersReducer = (state = initialState, action) => {
 
    switch (action.type) {
       //-----------Функция ввода символа в поле users ----------
-      case HANDLER_SYMBOL_USER:state.symbolAddUser = action.symbolNik;
-      return state;
+      case HANDLER_SYMBOL_USER: 
+         return {
+            ...state,
+            symbolAddUser: action.symbolNik
+         }
+      
       //-----------Функция добавления нового пользователя ----------
-      case HANDLER_USER:if(action.nik){
+      case HANDLER_USER:
+         if(state.symbolAddUser){                        
             let newUser = {
                id: state.users.length,
-               name: action.nik,
+               name: state.symbolAddUser,
                avatar: './img/noAvatar.jpg'
+            }  
+            return {
+            ...state,
+            users: state.users.concat(newUser),
+            symbolAddUser: '' 
             }
-            state.users = state.users.concat(newUser)
-            state.symbolAddUser = ''
          }
-      return state;
       default: return state
    }
 }
@@ -61,7 +68,6 @@ export let handlerAddSymbolUser = (symbolNik) => ({         // Формируе�
    symbolNik
 })
 
-export let handlerAddUser = (nik) => ({         // Формируется объект action для dispatch
-   type: HANDLER_USER,
-   nik
+export let handlerAddUser = () => ({         // Формируется объект action для dispatch
+   type: HANDLER_USER   
 })

@@ -1,23 +1,19 @@
-import React from 'react'
 import Messages from "./Messages"
-import StoreContext from './../StoreContext'
+import {connect} from 'react-redux'
 
-const MessagesContainer = () => {
-   
-   return (
-      <StoreContext.Consumer> 
-      {
-         (store) =>{
-         let tegs = store.getState().notesPage.allTags
-         let listMessages = store.getState().notesPage.filteredNotes
-         return <Messages 
-               tegs={tegs}
-               dispatch={store.dispatch}         
-               filteredNotes={listMessages}  
-            />}
-      }
-      </StoreContext.Consumer>
-   )      
+let MapStateToProps = (state) => {
+   return {
+      tegs: state.notesPage.allTags,
+      filteredNotes: state.notesPage.filteredNotes
+   }
 }
+   
+let MapDispatchToProps = (dispatch) => {
+   return {
+      dispatch: dispatch
+   }
+}
+
+const MessagesContainer = connect (MapStateToProps, MapDispatchToProps) (Messages)
 
 export default MessagesContainer

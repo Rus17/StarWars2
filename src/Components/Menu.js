@@ -6,7 +6,9 @@ const Menu = () => {
    return (
       <div className="menu">         
          <NavLink to="/showUsers">Пользователи</NavLink><br />
-         <NavLink to="/showMessages">Сообщения</NavLink><br />         
+         <NavLink to="/showMessages">Сообщения</NavLink><br />
+         <NavLink to="/dark">Темная сторона</NavLink><br />
+               
       </div>
    )
 }

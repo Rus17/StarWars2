@@ -90,6 +90,7 @@ let initialState = {
 ]
 }
 
+
 const notesReducer = (state = initialState, action) => {
 
    switch (action.type) {
@@ -97,6 +98,7 @@ const notesReducer = (state = initialState, action) => {
    case HANDLER_CLICK: {
       let newDate = new Date()
       newDate = newDate.toLocaleString('ru-RU')
+      if (action.color === '#000000') action.color = '#0afd2b'
 
       let nextNote = {
          myId: state.notes.length,
@@ -111,27 +113,40 @@ const notesReducer = (state = initialState, action) => {
       for (let value of state.allTags) {
          if (value === action.teg) counter = false
       }
-
-      // если такого тега нет и он не пустой, то добавляем его в скачанный массив db.allTags
+      
+      let stateCopy = {
+         ...state,
+         notes: state.notes,
+         allTags: state.allTags,
+         filteredNotes: state.filteredNotes
+      }
+      
+      // если такого тега нет и он не пустой, то добавляем его в массив allTags
       if (counter === true && action.teg !== '') {
-         state.allTags = state.allTags.concat(action.teg)
+         stateCopy.allTags = state.allTags.concat(action.teg)
       }
 
-       // добавляем в скачанный массив db.notes новый объект nextNote
-      state.notes = state.notes.concat(nextNote)
+       // добавляем в массив notes новый объект nextNote
+      stateCopy.notes = state.notes.concat(nextNote)
 
-      state.filteredNotes = state.notes
-   };
-   return state;
+      stateCopy.filteredNotes = stateCopy.notes
+   
+   return stateCopy}
          
       //-----------Функция фильтра статей по тегу----------
-   case HANDLER_TEG:state.filteredNotes = state.notes.filter(
-            (item) => item.myTags === action.teg);
-   return state;
+   case HANDLER_TEG:
+   return {
+      ...state,
+      filteredNotes: state.notes.filter(
+            (item) => item.myTags === action.teg)
+   }
          
       //-----------Функция сброса фильтра ----------
-   case HANDLER_RESET: state.filteredNotes = state.notes;
-   return state;
+   case HANDLER_RESET: 
+   return {
+      ...state,
+      filteredNotes: state.notes
+   }
    default:return state
    }
 }
