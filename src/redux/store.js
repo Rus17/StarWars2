@@ -92,7 +92,7 @@ let startObj ={
  else startObj.writeStorage()
 
 
-
+ 
 
 
 //------Объект для работы приложения---------

@@ -1,21 +1,22 @@
 import {connect} from 'react-redux'
 import Enemies from "./Enemies"
-import aliveAC from "./../../redux/enemiesReducer"
-import eliminatedAC from "./../../redux/enemiesReducer"
-import setEnemies from "./../../redux/enemiesReducer"
+import {aliveAC} from "./../../redux/enemiesReducer"
+import {eliminatedAC} from "./../../redux/enemiesReducer"
+import {setEnemies} from "./../../redux/enemiesReducer"
 
 
 let MapStateToProps = (state) => {
    return {
-   state: state.enemiesReducer.enemies
+   enemies: state.enemiesPage.enemies
    }
 }
 
 let MapDispatchToProps = (dispatch) =>{
+
    return{
       handlerStatusUp: (id) => {dispatch(eliminatedAC(id))},
       handlerStatusDown: (id) => {dispatch(aliveAC(id))},
-      handlerSetEnemies: () => {dispatch(setEnemies())}      
+      handlerSetEnemies: (enemies) => {dispatch(setEnemies(enemies))}
    }
 }
 
@@ -23,5 +24,5 @@ let MapDispatchToProps = (dispatch) =>{
 
 
 const EmeniesContainer = connect(MapStateToProps, MapDispatchToProps)(Enemies)
-   
+
 export default EmeniesContainer
