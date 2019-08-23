@@ -3,7 +3,7 @@ import './App.css'
 import UsersContainer from "./Components/UsersContainer"
 import MessagesContainer from "./Components/MessagesContainer"
 import EnemiesContainer from "./Components/Dark/EnemiesContainer"
-import UsersFromDimichContainer from "./Components/UsersFromDimich/UsersFromDimichContainer"
+import MembersFromDimichContainer from "./Components/UsersFromDimich/MembersFromDimichContainer"
 import Menu from "./Components/Menu"
 import {BrowserRouter, Route} from "react-router-dom"
 import {Provider} from "react-redux"
@@ -39,8 +39,8 @@ const App = (props) => {
                   />
                   
                   <Route
-                     path="/usersFromDimich"
-                     render={() => <UsersFromDimichContainer />
+                     path="/membersFromDimich"
+                     render={() => <MembersFromDimichContainer />
                      }
                   />
                </div>
