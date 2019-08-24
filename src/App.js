@@ -4,6 +4,7 @@ import UsersContainer from "./Components/UsersContainer"
 import MessagesContainer from "./Components/MessagesContainer"
 import EnemiesContainer from "./Components/Dark/EnemiesContainer"
 import MembersFromDimichContainer from "./Components/UsersFromDimich/MembersFromDimichContainer"
+import ProfileContainer from './Components/Profile/ProfileContainer'
 import Menu from "./Components/Menu"
 import {BrowserRouter, Route} from "react-router-dom"
 import {Provider} from "react-redux"
@@ -37,10 +38,15 @@ const App = (props) => {
                      render={() => <EnemiesContainer />
                      }
                   />
-                  
+
                   <Route
                      path="/membersFromDimich"
                      render={() => <MembersFromDimichContainer />
+                     }
+                  />
+                  <Route
+                     path="/profile"
+                     render={() => <ProfileContainer />
                      }
                   />
                </div>

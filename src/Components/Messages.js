@@ -6,12 +6,12 @@ import CompTags from "./CompTags"
 import {handlerResetActionCreator} from "./../redux/notesReducer.js"
 
 const Messages = (props) => {
-   
+
    let handlerReset = () => {
       let action = handlerResetActionCreator()
       props.dispatch(action)
    }
-   
+
    let outputTegs = props.tegs.map((item) => {
                if (item.myTags !== '')
                   return (
@@ -22,7 +22,7 @@ const Messages = (props) => {
                      />
                   )
             })
-   
+
    let listNotes = props.filteredNotes.map((el) => {
                return <Articles
                   key = {el.myId}
@@ -30,9 +30,8 @@ const Messages = (props) => {
                   note2 = {el.mydate}
                   note3 = {el.myColor}
                />
-            })
-   
-   
+            })   
+
    return (
       <div className = "messages" >
 
