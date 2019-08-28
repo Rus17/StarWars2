@@ -3,11 +3,12 @@ import './App.css'
 import UsersContainer from "./Components/UsersContainer"
 import MessagesContainer from "./Components/MessagesContainer"
 import EnemiesContainer from "./Components/Dark/EnemiesContainer"
-import MembersFromDimichContainer from "./Components/UsersFromDimich/MembersFromDimichContainer"
+import MembersContainer from "./Components/Members/MembersContainer"
 import ProfileContainer from './Components/Profile/ProfileContainer'
 import Menu from "./Components/Menu"
 import {BrowserRouter, Route} from "react-router-dom"
 import {Provider} from "react-redux"
+import HeaderContainer from './Components/Header/HeaderContainer'
 
 
 const App = (props) => {
@@ -16,7 +17,7 @@ const App = (props) => {
       <BrowserRouter>
       <Provider store={props.store}>
          <div className = "app" >
-            <div className="header">Шапка</div>
+            <HeaderContainer />
             <div className="container">
                <Menu />
                <div className="content">
@@ -41,11 +42,11 @@ const App = (props) => {
 
                   <Route
                      path="/membersFromDimich"
-                     render={() => <MembersFromDimichContainer />
+                     render={() => <MembersContainer />
                      }
                   />
                   <Route
-                     path="/profile"
+                     path="/profile/:userId?"
                      render={() => <ProfileContainer />
                      }
                   />

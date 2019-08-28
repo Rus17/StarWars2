@@ -1,51 +1,52 @@
 import React from 'react';
 import {connect} from "react-redux";
-import Dimich from './Dimich'
-import * as axios from 'axios'
+import Members from './Members'
 import {
    follow,
    unfollow,
    setMembers,
    setCurrentPage,
-   setUsersCount,
-   setFetching
-} from "./../../redux/membersFromDimichReducer";
+   setFetching,
+   setinTheProcess,
+   getMembersThunkCreator
+} from "./../../redux/membersReducer";
 import Preloader from './../Preloader/Preloader'
+import {getUsers} from './../../api/api'
 
-class DimichAPIComponent extends React.Component {
+class MembersAPIComponent extends React.Component {
 
    componentDidMount(props){
-      if (this.props.members.length === 0) {
-         this.props.setFetching()
-         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-               this.props.setFetching()
-               this.props.setMembers(response.data.items)
-               this.props.setUsersCount(response.data.totalCount)
-         })
-      }
+      this.props.getMembersThunkCreator()
+
+//         this.props.setFetching()
+//         getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+//               this.props.setFetching()
+//               this.props.setMembers(data.items)
+//               this.props.setUsersCount(data.totalCount)
+//         })
    }
 
    handlerCurrentPage = (p) => {
       this.props.setFetching()
       this.props.setCurrentPage(p)
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
-            .then(response => {
+      getUsers(p, this.props.pageSize).then(data => {
                this.props.setFetching()
-               this.props.setMembers(response.data.items)})
+               this.props.setMembers(data.items)})
    }
 
    render(){
 
       return <>
                {this.props.isFetching ? <Preloader/> : null}
-               <Dimich totalUsersCount={this.props.totalUsersCount}
+               <Members totalUsersCount={this.props.totalUsersCount}
                       pageSize={this.props.pageSize}
                       members={this.props.members}
                       follow={this.props.follow}
                       unfollow={this.props.unfollow}
                       handlerCurrentPage={this.handlerCurrentPage}
                       currentPage={this.props.currentPage}
+                      setinTheProcess={this.props.setinTheProcess}
+                      inTheProcess={this.props.inTheProcess}
                />
             </>
    }
@@ -57,7 +58,8 @@ let mapStateToProps = (state) => {
       pageSize: state.membersPage.pageSize,
       totalUsersCount: state.membersPage.totalUsersCount,
       currentPage: state.membersPage.currentPage,
-      isFetching: state.membersPage.isFetching
+      isFetching: state.membersPage.isFetching,
+      inTheProcess: state.membersPage.inTheProcess
    }
 }
 
@@ -66,6 +68,7 @@ export default connect(mapStateToProps, {
                         unfollow,
                         setMembers,
                         setCurrentPage,
-                        setUsersCount,
-                        setFetching
-   })(DimichAPIComponent);
+                        setFetching,
+                        setinTheProcess,
+                        getMembersThunkCreator
+   })(MembersAPIComponent);

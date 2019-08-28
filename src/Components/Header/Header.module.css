@@ -1,0 +1,15 @@
+.header{   
+   width: 1000px;
+   margin: 0 auto;
+   background-image: url(../../img/star-wars-blu-ray.jpg);
+   background-position: center;
+   background-repeat: round;
+   height: 300px;
+}
+
+.login{
+   float: right;
+   color: white;
+   font-weight: bold;
+   text-decoration: none
+}
