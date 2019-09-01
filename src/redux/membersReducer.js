@@ -1,5 +1,5 @@
 import {getUsers} from './../api/api'
-import {setUnFollow} from './../api/api'
+import {setUnFollow, setFollow} from './../api/api'
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -13,7 +13,7 @@ let initialState = {
    members: [ ],
    pageSize: 4,
    totalUsersCount: 0,
-   currentPage: 1,
+   currentPage: null,
    isFetching: false,
    inTheProcess: null
 };
@@ -21,6 +21,7 @@ let initialState = {
 const membersReducer = (state = initialState, action) => {
 
    switch(action.type) {
+      // Ставит выбранному пользователю "followed: true"
       case FOLLOW:
             return {
                 ...state,
@@ -31,6 +32,7 @@ const membersReducer = (state = initialState, action) => {
                     return u;
                 })
             }
+      // Ставит выбранному пользователю "followed: false"
       case UNFOLLOW:
             return {
                 ...state,
@@ -65,6 +67,7 @@ const membersReducer = (state = initialState, action) => {
              isFetching: !state.isFetching
           }
       }
+      // Ставит метку "inTheProcess" для блокирования нажатой кнопки
       case TOGGLE_IN_THE_PROCESS:{
          return {
             ...state,
@@ -95,29 +98,48 @@ export const setinTheProcess = (userId) => ({
 
 // ------------------------- Thunk Creator-ы -------------------------
 
+
 // Получение списка пользователей для вывода на страничку
-export const getMembersThunkCreator = (currentPage, pageSize) => {   
-   return (dispatch) => {   
-         dispatch(setFetching())
-         getUsers(currentPage, pageSize)
-            .then(data => {
-               dispatch(setFetching())
-               dispatch(setMembers(data.items))
-               dispatch(setUsersCount(data.totalCount))
-            })      
-   }   
+export const getMembersTC = (p, pageSize) => {
+   return (dispatch) => {
+
+            dispatch(setFetching())      // Запускаем крутилку
+            dispatch(setCurrentPage(p))  // Устанавливаем текущую страницу
+            getUsers(p, pageSize)// Получаем пользователей для n-й страницы
+               .then(data => {
+                  dispatch(setFetching())      // Останавливаем крутилку
+                  dispatch(setMembers(data.items))// Перезаписываем текущих пользователей в state
+                  dispatch(setUsersCount(data.totalCount)) // Записать количество пользователей
+               })
+   }
 }
 
 // Действия при нажатии кнопки "Отписаться"
-export const followTC = (id) => {
+export const unFollowTC = (id) => {
+
    return (dispatch) => {
-      setinTheProcess(id)
-      setUnFollow(id)              // Запрос к серверу на отписку от пользователя (axios)
+      dispatch(setinTheProcess(id))
+      setUnFollow(id)            // Запрос к серверу на отписку от пользователя (axios)
          .then(data => {if(data.resultCode == 0) {
-            unfollow(id)
-            setinTheProcess(null)
+            dispatch(unfollow(id))
+            dispatch(setinTheProcess(null))
          }})
    }
 }
+
+// Действия при нажатии кнопки "Подписаться"
+export const followTC = (id) => {
+   return (dispatch) => {
+      dispatch(setinTheProcess(id))
+      setFollow(id)
+         .then(data => {if(data.resultCode == 0){
+            dispatch(follow(id))
+            dispatch(setinTheProcess(null))
+         }})
+   }
+}
+
+
+
 
 export default membersReducer;

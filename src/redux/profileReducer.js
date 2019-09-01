@@ -1,3 +1,4 @@
+import {getUserInformation} from '../api/api'
 const SET_MEMBERS_PROFILE = 'SET_MEMBERS_PROFILE'
 
 let initialState = {
@@ -18,11 +19,34 @@ const profileReducer = (state = initialState, action) => {
    }
 }
 
+
+// ----------------- AC -----------------
 export const setMemberProfile = (profile) => {
    return ({
       type: SET_MEMBERS_PROFILE,
       profile
    })
 }
+
+
+
+
+// ----------------- TC -----------------
+
+export const getInfoMemberTC = (id) => {
+   return (dispatch) =>{
+      let userId = id
+      if(!userId) userId = 2
+      getUserInformation(userId)
+      .then(data => {
+         dispatch(setMemberProfile(data))
+      })
+   }
+}
+
+
+
+
+
 
 export default profileReducer;

@@ -2,13 +2,9 @@ import React from 'react';
 import {connect} from "react-redux";
 import Members from './Members'
 import {
-   follow,
-   unfollow,
-   setMembers,
-   setCurrentPage,
-   setFetching,
-   setinTheProcess,
-   getMembersThunkCreator
+   getMembersTC,
+   unFollowTC,
+   followTC
 } from "./../../redux/membersReducer";
 import Preloader from './../Preloader/Preloader'
 import {getUsers} from './../../api/api'
@@ -16,37 +12,28 @@ import {getUsers} from './../../api/api'
 class MembersAPIComponent extends React.Component {
 
    componentDidMount(props){
-      this.props.getMembersThunkCreator()
-
-//         this.props.setFetching()
-//         getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-//               this.props.setFetching()
-//               this.props.setMembers(data.items)
-//               this.props.setUsersCount(data.totalCount)
-//         })
+      this.props.getMembersTC(1, this.props.pageSize)
    }
 
+// Обработчик нажатия на страничку.
+// Получает от сервера следующую порцию пользователей и записывает их в state
    handlerCurrentPage = (p) => {
-      this.props.setFetching()
-      this.props.setCurrentPage(p)
-      getUsers(p, this.props.pageSize).then(data => {
-               this.props.setFetching()
-               this.props.setMembers(data.items)})
+      this.props.getMembersTC(p, this.props.pageSize)
    }
 
    render(){
 
       return <>
                {this.props.isFetching ? <Preloader/> : null}
-               <Members totalUsersCount={this.props.totalUsersCount}
-                      pageSize={this.props.pageSize}
+               <Members
                       members={this.props.members}
-                      follow={this.props.follow}
-                      unfollow={this.props.unfollow}
+                      totalUsersCount={this.props.totalUsersCount}
+                      pageSize={this.props.pageSize}
                       handlerCurrentPage={this.handlerCurrentPage}
                       currentPage={this.props.currentPage}
-                      setinTheProcess={this.props.setinTheProcess}
                       inTheProcess={this.props.inTheProcess}
+                      unFollowTC={this.props.unFollowTC}
+                      followTC={this.props.followTC}
                />
             </>
    }
@@ -64,11 +51,7 @@ let mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-                        follow,
-                        unfollow,
-                        setMembers,
-                        setCurrentPage,
-                        setFetching,
-                        setinTheProcess,
-                        getMembersThunkCreator
+                        getMembersTC,
+                        unFollowTC,
+                        followTC
    })(MembersAPIComponent);

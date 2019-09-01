@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Enemies.css"
 
+
 const Enemies = (props) => {
    if(props.enemies.length === 0)props.handlerSetEnemies([
       {
@@ -124,6 +125,8 @@ const Enemies = (props) => {
       }
    ])
 
+   
+
    let showEnemies = props.enemies.map((enemy)=>{
       return(<div key={enemy.id} >
                 <div className="block2">
@@ -144,7 +147,7 @@ const Enemies = (props) => {
                               }>{enemy.status}</button> :
                         <button onClick={
                            () => {props.handlerStatusUp(enemy.id)}
-                              }>{enemy.status}</button>      
+                              }>{enemy.status}</button>
                         }
 
                      </div>
@@ -156,8 +159,6 @@ const Enemies = (props) => {
       )
    })
 
-
       return <div>{showEnemies}</div>
    }
-
-      export default Enemies
+export default Enemies

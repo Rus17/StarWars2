@@ -2,8 +2,6 @@ import React from 'react'
 import styles from './Members.module.css';
 import avatar from './../../img/avatar.png'
 import {NavLink} from 'react-router-dom'
-import {setFollow, setUnFollow} from './../../api/api'
-import {followTC} from './../../redux/membersReducer'
 
 
 let Members = (props) => {
@@ -15,6 +13,7 @@ let Members = (props) => {
       for(let i = 1; i <= pages; i++){pagesArr.push(i)}
 
    return  <div>
+   {/* Отображаем номера страниц. Текущую страницу отображаем жирным */}
          <div>
            {pagesArr.map((p)=>{
                   return <span key={p} className={p === props.currentPage ? styles.selectedPage : ''} onClick={(e) => props.handlerCurrentPage(p)}> {p} </span>
@@ -24,38 +23,28 @@ let Members = (props) => {
         {
             props.members.map(u => <div key={u.id}>
                 <span>
+
+                {/*Отображаем аватарку*/}
                     <div>
                         <NavLink to={'./profile/' + u.id}>
                            <img src={u.photos.small ? u.photos.small : avatar} alt="avatarka" className={styles.userPhoto}/>
                         </NavLink>
                     </div>
-                    
+
+         {/*Отображаем кнопку follow/unfollow*/}
                     <div>
                         {u.followed
-                           ? <button disabled={props.inTheProcess == u.id} onClick={() => {
-                             followTC(u.id) 
-//                              props.setinTheProcess(u.id)
-//                              setUnFollow(u.id)
-//                                 .then(data => {if(data.resultCode == 0) {
-//                                    props.unfollow(u.id)
-//                                    props.setinTheProcess(null)
-//                                 }})
-                           }
-                                                                                   }>Unfollow</button>
-                          
-                           : <button disabled={props.inTheProcess == u.id} onClick={() => {
-                              props.setinTheProcess(u.id)
-                              setFollow(u.id)
-                                 .then(data => {if(data.resultCode == 0){
-                                    props.follow(u.id)
-                                    props.setinTheProcess(null)
-                                 }})                             
-                           }}>Follow</button>}
-
+                           ? <button disabled={props.inTheProcess == u.id}
+                           onClick={() => {props.unFollowTC(u.id)}
+                          }>Unfollow</button>
+                           : <button disabled={props.inTheProcess == u.id}
+                           onClick={() => {props.followTC(u.id)}
+                           }>Follow</button>
+                        }
                     </div>
                 </span>
-                
-                
+
+      {/*Отображаем: Имя, статус, страна, город*/}
                 <span>
                     <span>
                         <div>{u.name}</div>

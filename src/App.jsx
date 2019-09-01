@@ -5,6 +5,7 @@ import MessagesContainer from "./Components/MessagesContainer"
 import EnemiesContainer from "./Components/Dark/EnemiesContainer"
 import MembersContainer from "./Components/Members/MembersContainer"
 import ProfileContainer from './Components/Profile/ProfileContainer'
+import LoginContainer from './Components/Login/Login'
 import Menu from "./Components/Menu"
 import {BrowserRouter, Route} from "react-router-dom"
 import {Provider} from "react-redux"
@@ -50,6 +51,12 @@ const App = (props) => {
                      render={() => <ProfileContainer />
                      }
                   />
+                  <Route
+                     path="/login"
+                     render={() => <LoginContainer />
+                     }
+                  />
+
                </div>
             </div>
          </div>

@@ -4,10 +4,12 @@ import {NavLink} from 'react-router-dom'
 
 let Header = (props) => {
    return   <div className={styleHeader.header}>
-               <div>
-                  <NavLink to='/login' className={styleHeader.login}>{props.login ? props.login : 'Login'}</NavLink>
+               <div className={styleHeader.login}>
+                  <NavLink to='/login' className={styleHeader.link}>{props.login ? props.login : 'Login'}</NavLink>
+                  <p >{props.id}</p>
+                  <p >{props.email}</p>
                </div>
-            </div>  
+            </div>
 }
 
 export default Header

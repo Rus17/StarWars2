@@ -1,17 +1,13 @@
 import React from 'react'
 import Profile from './Profile'
 import {connect} from 'react-redux'
-import {setMemberProfile} from './../../redux/profileReducer'
+import {setMemberProfile, getInfoMemberTC} from './../../redux/profileReducer'
 import {withRouter} from 'react-router-dom'
 import {getUserInformation} from './../../api/api'
 
 class ProfileContainer extends React.Component {
-   componentDidMount(props){
-      let userId = this.props.match.params.userId
-      if(!userId) userId = 2
-      getUserInformation(userId).then(data => {
-         this.props.setMemberProfile(data)
-      })
+   componentDidMount(props){ //this.props.match.params.userId - ????????
+      this.props.getInfoMemberTC(this.props.match.params.userId)
    }
 
    render() {
@@ -25,4 +21,7 @@ let MapStateToProps = (state) => ({
 
 let WithURLdataContainerComponent = withRouter(ProfileContainer)  //withRouter - Закидывает данные из URL в ProfileContainer
 
-export default connect (MapStateToProps, {setMemberProfile}) (WithURLdataContainerComponent)
+export default connect (MapStateToProps, {
+   setMemberProfile,
+   getInfoMemberTC
+}) (WithURLdataContainerComponent)

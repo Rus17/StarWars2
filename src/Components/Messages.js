@@ -5,6 +5,7 @@ import './Messages.css'
 import CompTags from "./CompTags"
 import {handlerResetActionCreator} from "./../redux/notesReducer.js"
 
+
 const Messages = (props) => {
 
    let handlerReset = () => {
@@ -30,9 +31,12 @@ const Messages = (props) => {
                   note2 = {el.mydate}
                   note3 = {el.myColor}
                />
-            })   
+            })
+
+
 
    return (
+
       <div className = "messages" >
 
          {/*-----------Поле ввода--------------- */}

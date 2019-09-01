@@ -1,5 +1,9 @@
 import Messages from "./Messages"
 import {connect} from 'react-redux'
+import React from 'react'
+import {Redirect} from 'react-router-dom'
+import {withAuthRedirect} from './../hoc/AuthRedirect'
+import {compose} from 'redux'
 
 let MapStateToProps = (state) => {
    return {
@@ -7,13 +11,10 @@ let MapStateToProps = (state) => {
       filteredNotes: state.notesPage.filteredNotes
    }
 }
-   
 let MapDispatchToProps = (dispatch) => {
    return {
       dispatch: dispatch
    }
 }
 
-const MessagesContainer = connect (MapStateToProps, MapDispatchToProps) (Messages)
-
-export default MessagesContainer
+export default compose (connect (MapStateToProps, MapDispatchToProps), withAuthRedirect) (Messages)

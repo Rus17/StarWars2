@@ -26,7 +26,7 @@ export const setFollow = (id) => {
                }}
            ).then(response => response.data)
 }
-   
+
 export const getUserInformation = (id) => {
    return axios.get(`${server}profile/${id}`)
    .then(response => response.data)
@@ -34,5 +34,5 @@ export const getUserInformation = (id) => {
 
 export const getMeInformation = () => {
    return axios.get(`${server}auth/me`, {withCredentials: true})
-   .then(response => response.data.data)
+   .then(response => response.data)
 }

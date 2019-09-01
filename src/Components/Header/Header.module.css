@@ -1,4 +1,4 @@
-.header{   
+.header{
    width: 1000px;
    margin: 0 auto;
    background-image: url(../../img/star-wars-blu-ray.jpg);
@@ -9,6 +9,12 @@
 
 .login{
    float: right;
+   color: white;
+   font-weight: bold;
+   text-decoration: none
+}
+
+.link{
    color: white;
    font-weight: bold;
    text-decoration: none
