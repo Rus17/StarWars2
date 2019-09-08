@@ -1,4 +1,3 @@
-const HANDLER_SYMBOL_USER = 'HANDLERSYMBOLUSER'
 const HANDLER_USER = 'HANDLERUSER'
 
 //------------------Начальные значения State------------------
@@ -29,26 +28,18 @@ let initialState = {
       name: 'Люк Скайуокер',
       avatar: './img/LSW.jpg',
    },
-],
-   symbolAddUser: ''
+]
 }
 
 const usersReducer = (state = initialState, action) => {
 
    switch (action.type) {
-      //-----------Функция ввода символа в поле users ----------
-      case HANDLER_SYMBOL_USER: 
-         return {
-            ...state,
-            symbolAddUser: action.symbolNik
-         }
-      
+            
       //-----------Функция добавления нового пользователя ----------
-      case HANDLER_USER:
-         if(state.symbolAddUser){                        
+      case HANDLER_USER:                               
             let newUser = {
                id: state.users.length,
-               name: state.symbolAddUser,
+               name: action.name,
                avatar: './img/noAvatar.jpg'
             }  
             return {
@@ -56,18 +47,14 @@ const usersReducer = (state = initialState, action) => {
             users: state.users.concat(newUser),
             symbolAddUser: '' 
             }
-         }
+         
       default: return state
    }
 }
 
 export default usersReducer
 
-export let handlerAddSymbolUser = (symbolNik) => ({         // Формируется объект action для dispatch
-   type: HANDLER_SYMBOL_USER,
-   symbolNik
-})
-
-export let handlerAddUser = () => ({         // Формируется объект action для dispatch
-   type: HANDLER_USER   
+export let handlerAddUser = (name) => ({         // Формируется объект action для dispatch
+   type: HANDLER_USER,
+   name: name
 })

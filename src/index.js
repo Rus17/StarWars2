@@ -3,4 +3,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 
-ReactDOM.render(<App store={store}/>, document.querySelector('#root'))
+import {Provider} from "react-redux"
+import {BrowserRouter} from "react-router-dom"
+
+ReactDOM.render(
+   <BrowserRouter>
+      <Provider store={store}>
+         <App />
+      </Provider>
+   </BrowserRouter>, document.querySelector('#root'))

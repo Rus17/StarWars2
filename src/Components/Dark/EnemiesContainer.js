@@ -1,8 +1,6 @@
 import {connect} from 'react-redux'
 import Enemies from "./Enemies"
 import {aliveAC, eliminatedAC, setEnemies} from "./../../redux/enemiesReducer"
-import React from 'react'
-import {Redirect} from 'react-router-dom'
 import {withAuthRedirect} from '../../hoc/AuthRedirect'
 import {compose} from 'redux'
 

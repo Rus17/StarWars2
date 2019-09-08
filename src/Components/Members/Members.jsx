@@ -34,10 +34,10 @@ let Members = (props) => {
          {/*Отображаем кнопку follow/unfollow*/}
                     <div>
                         {u.followed
-                           ? <button disabled={props.inTheProcess == u.id}
+                           ? <button disabled={props.inTheProcess === u.id}
                            onClick={() => {props.unFollowTC(u.id)}
                           }>Unfollow</button>
-                           : <button disabled={props.inTheProcess == u.id}
+                           : <button disabled={props.inTheProcess === u.id}
                            onClick={() => {props.followTC(u.id)}
                            }>Follow</button>
                         }

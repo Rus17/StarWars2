@@ -1,7 +1,5 @@
 import Messages from "./Messages"
 import {connect} from 'react-redux'
-import React from 'react'
-import {Redirect} from 'react-router-dom'
 import {withAuthRedirect} from './../hoc/AuthRedirect'
 import {compose} from 'redux'
 

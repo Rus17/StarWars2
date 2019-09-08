@@ -120,7 +120,7 @@ export const unFollowTC = (id) => {
    return (dispatch) => {
       dispatch(setinTheProcess(id))
       setUnFollow(id)            // Запрос к серверу на отписку от пользователя (axios)
-         .then(data => {if(data.resultCode == 0) {
+         .then(data => {if(data.resultCode === 0) {
             dispatch(unfollow(id))
             dispatch(setinTheProcess(null))
          }})
@@ -132,7 +132,7 @@ export const followTC = (id) => {
    return (dispatch) => {
       dispatch(setinTheProcess(id))
       setFollow(id)
-         .then(data => {if(data.resultCode == 0){
+         .then(data => {if(data.resultCode === 0){
             dispatch(follow(id))
             dispatch(setinTheProcess(null))
          }})

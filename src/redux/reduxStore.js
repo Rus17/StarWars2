@@ -5,7 +5,9 @@ import enemiesReducer from "./enemiesReducer"
 import membersReducer from "./membersReducer"
 import profileReducer from './profileReducer'
 import authReducer from './authReducer'
+import appReducer from './appReducer'
 import thunkMiddleware from 'redux-thunk'
+import {reducer as formReducer} from 'redux-form'
 
 let reducers = combineReducers({       // Наш state
    notesPage: notesReducer,
@@ -13,7 +15,9 @@ let reducers = combineReducers({       // Наш state
    enemiesPage: enemiesReducer,
    membersPage: membersReducer,
    profilePage: profileReducer,
-   auth: authReducer
+   auth: authReducer,
+   form: formReducer,
+   initialization: appReducer
 })
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware))

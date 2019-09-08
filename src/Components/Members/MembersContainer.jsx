@@ -1,13 +1,25 @@
 import React from 'react';
 import {connect} from "react-redux";
 import Members from './Members'
+
 import {
    getMembersTC,
    unFollowTC,
    followTC
 } from "./../../redux/membersReducer";
+
 import Preloader from './../Preloader/Preloader'
-import {getUsers} from './../../api/api'
+
+import {
+      getMembers,
+      getPageSize,
+      getTotalUsersCount,
+      getCurrentPage,
+      getIsFetching,
+      getInTheProcess} from './../../redux/membersSelectors'
+
+
+
 
 class MembersAPIComponent extends React.Component {
 
@@ -15,7 +27,7 @@ class MembersAPIComponent extends React.Component {
       this.props.getMembersTC(1, this.props.pageSize)
    }
 
-// Обработчик нажатия на страничку.
+// Обработчик нажатия на номер странички.
 // Получает от сервера следующую порцию пользователей и записывает их в state
    handlerCurrentPage = (p) => {
       this.props.getMembersTC(p, this.props.pageSize)
@@ -39,16 +51,33 @@ class MembersAPIComponent extends React.Component {
    }
 }
 
+//let mapStateToProps = (state) => {
+//   return {
+//      members: state.membersPage.members,
+//      pageSize: state.membersPage.pageSize,
+//      totalUsersCount: state.membersPage.totalUsersCount,
+//      currentPage: state.membersPage.currentPage,
+//      isFetching: state.membersPage.isFetching,
+//      inTheProcess: state.membersPage.inTheProcess
+//   }
+//}
+
+
 let mapStateToProps = (state) => {
    return {
-      members: state.membersPage.members,
-      pageSize: state.membersPage.pageSize,
-      totalUsersCount: state.membersPage.totalUsersCount,
-      currentPage: state.membersPage.currentPage,
-      isFetching: state.membersPage.isFetching,
-      inTheProcess: state.membersPage.inTheProcess
+      members: getMembers(state),
+      pageSize: getPageSize(state),
+      totalUsersCount: getTotalUsersCount(state),
+      currentPage: getCurrentPage(state),
+      isFetching: getIsFetching(state),
+      inTheProcess: getInTheProcess(state)
    }
 }
+
+
+
+
+
 
 export default connect(mapStateToProps, {
                         getMembersTC,

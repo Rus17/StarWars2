@@ -1,22 +1,29 @@
 import React from 'react'
+import {compose} from 'redux'
+import {connect} from "react-redux"
+import {Route, withRouter} from "react-router-dom"
+
 import './App.css'
+import Menu from "./Components/Menu"
+import {authNotAuthTC} from './redux/appReducer'
 import UsersContainer from "./Components/UsersContainer"
 import MessagesContainer from "./Components/MessagesContainer"
 import EnemiesContainer from "./Components/Dark/EnemiesContainer"
 import MembersContainer from "./Components/Members/MembersContainer"
 import ProfileContainer from './Components/Profile/ProfileContainer'
-import LoginContainer from './Components/Login/Login'
-import Menu from "./Components/Menu"
-import {BrowserRouter, Route} from "react-router-dom"
-import {Provider} from "react-redux"
+import LoginContainer from './Components/Login/LoginContainer'
 import HeaderContainer from './Components/Header/HeaderContainer'
+import Preloader from './Components/Preloader/Preloader'
 
+class App extends React.Component{   
+   
+   componentDidMount(props){
+      this.props.authNotAuthTC()
+   }
 
-const App = (props) => {
-
-   return (
-      <BrowserRouter>
-      <Provider store={props.store}>
+   render(props) {
+      if(!this.props.init) return <Preloader />     //Чтобы не загружался сайт для незалогиненого пользователя 
+      return (                  
          <div className = "app" >
             <HeaderContainer />
             <div className="container">
@@ -56,13 +63,19 @@ const App = (props) => {
                      render={() => <LoginContainer />
                      }
                   />
-
                </div>
             </div>
-         </div>
-   </Provider>
-      </BrowserRouter>
-   )
+         </div>          
+      )
+   }
 }
 
-export default App
+let MapStateToProps = (state) => {
+   return {
+      init: state.initialization.authNotAuth
+   }
+}
+
+export default compose(
+   withRouter,
+   connect(MapStateToProps, {authNotAuthTC}))(App)
