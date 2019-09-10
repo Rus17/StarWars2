@@ -1,6 +1,19 @@
-export const getMembers = (state) => {
+import {createSelector} from 'reselect'
+
+
+const getMembersSelectorPrimitive = (state) => {
    return state.membersPage.members
 }
+
+export const getMembersSelectorSuper = createSelector(
+   getMembersSelectorPrimitive,
+   (members) => {return members.filter(u => true)}
+)
+
+
+
+
+
 
 export const getPageSize = (state) => {
    return state.membersPage.pageSize
@@ -21,4 +34,3 @@ export const getIsFetching = (state) => {
 export const getInTheProcess = (state) => {
    return state.membersPage.inTheProcess
 }
-

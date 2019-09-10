@@ -11,7 +11,7 @@ import {
 import Preloader from './../Preloader/Preloader'
 
 import {
-      getMembers,
+      getMembersSelectorSuper,
       getPageSize,
       getTotalUsersCount,
       getCurrentPage,
@@ -64,8 +64,9 @@ class MembersAPIComponent extends React.Component {
 
 
 let mapStateToProps = (state) => {
+   // console.log("Period")
    return {
-      members: getMembers(state),
+      members: getMembersSelectorSuper(state),
       pageSize: getPageSize(state),
       totalUsersCount: getTotalUsersCount(state),
       currentPage: getCurrentPage(state),

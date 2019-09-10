@@ -17,7 +17,7 @@ const profileReducer = (state = initialState, action) => {
             profile: action.profile
          }
       }
-         
+
         case SET_MEMBERS_STATUS:{
          return {
             ...state,
@@ -80,17 +80,11 @@ export const setInfoMemberStatusTC = (status) => {
    return (dispatch) =>{
       setStatus(status)
       .then(response => {
-         
+
          if(response.data.resultCode === 0)
          dispatch(setMemberStatus(status))
       })
    }
 }
-
-
-
-
-
-
 
 export default profileReducer;
