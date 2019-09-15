@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/StarWars/static/css/main.4141b9b1.chunk.css",
+    "main.js": "/StarWars/static/js/main.a7acd1ef.chunk.js",
+    "main.js.map": "/StarWars/static/js/main.a7acd1ef.chunk.js.map",
+    "runtime~main.js": "/StarWars/static/js/runtime~main.93d8177b.js",
+    "runtime~main.js.map": "/StarWars/static/js/runtime~main.93d8177b.js.map",
+    "static/js/2.e0215582.chunk.js": "/StarWars/static/js/2.e0215582.chunk.js",
+    "static/js/2.e0215582.chunk.js.map": "/StarWars/static/js/2.e0215582.chunk.js.map",
+    "static/css/3.3050aff5.chunk.css": "/StarWars/static/css/3.3050aff5.chunk.css",
+    "static/js/3.54ceef4a.chunk.js": "/StarWars/static/js/3.54ceef4a.chunk.js",
+    "static/js/3.54ceef4a.chunk.js.map": "/StarWars/static/js/3.54ceef4a.chunk.js.map",
+    "index.html": "/StarWars/index.html",
+    "precache-manifest.f0b75efbbf10005afabb78038141ef65.js": "/StarWars/precache-manifest.f0b75efbbf10005afabb78038141ef65.js",
+    "service-worker.js": "/StarWars/service-worker.js",
+    "static/css/3.3050aff5.chunk.css.map": "/StarWars/static/css/3.3050aff5.chunk.css.map",
+    "static/css/main.4141b9b1.chunk.css.map": "/StarWars/static/css/main.4141b9b1.chunk.css.map",
+    "static/media/831.svg": "/StarWars/static/media/831.f03850a6.svg",
+    "static/media/Header.module.css": "/StarWars/static/media/star-wars-blu-ray.94a837f5.jpg"
+  }
+}
